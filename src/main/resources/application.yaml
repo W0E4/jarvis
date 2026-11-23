@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: Jarvis
+server:
+  port: 8081
+  address: 127.0.0.1
+
+jarvis:
+  data-dir: ./jarvis-data
+  ai:
+    base-url: https://api.openai.com/v1   # 用户可改为 http://localhost:11434/v1（Ollama）等
+    api-key: ""                            # 建议通过环境变量 JARVIS_AI_API_KEY 注入，不写明文
+    chat-model: gpt-4o-mini
+    embedding-model: text-embedding-3-small
+    embedding-dimension: 1536              # 必须与 embedding 模型实际输出维度一致，启动时会校验
+    request-timeout-seconds: 30
+  ingest:
+    chunk-size: 300
+    chunk-overlap: 50
+    supported-extensions: [".md", ".txt"]
+  retrieval:
+    top-k: 5
+  auth:
+    local-api-key: ""                      # 可选；配置后请求需带对应 Header，防止同机其他进程误调
